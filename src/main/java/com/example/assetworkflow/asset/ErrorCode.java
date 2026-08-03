@@ -1,5 +1,6 @@
 package com.example.assetworkflow.asset;
 
 public enum ErrorCode {
-  INVALID_BORROW_REQUEST
+  INVALID_BORROW_REQUEST,
+  EMPLOYEE_NOT_ELIGIBLE
 }
