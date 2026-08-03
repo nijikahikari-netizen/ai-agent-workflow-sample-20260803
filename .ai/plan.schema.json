@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "plan_id",
+    "issue_revision",
+    "base_sha",
+    "summary",
+    "planned_files",
+    "implementation_steps",
+    "validation_commands",
+    "assumptions",
+    "risks",
+    "requested_permissions",
+    "stop_conditions"
+  ],
+  "properties": {
+    "plan_id": {"type": "string"},
+    "issue_revision": {"type": "string"},
+    "base_sha": {"type": "string"},
+    "summary": {"type": "string"},
+    "planned_files": {"type": "array", "items": {"type": "string"}},
+    "implementation_steps": {"type": "array", "items": {"type": "string"}},
+    "validation_commands": {"type": "array", "items": {"type": "string"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "risks": {"type": "array", "items": {"type": "string"}},
+    "requested_permissions": {"type": "object"},
+    "stop_conditions": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

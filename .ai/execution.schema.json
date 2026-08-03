@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "run_id",
+    "plan_id",
+    "base_sha",
+    "head_sha",
+    "changed_files",
+    "commands",
+    "exit_codes",
+    "tests",
+    "scope_result",
+    "assumptions",
+    "remaining_risks",
+    "status"
+  ],
+  "properties": {
+    "run_id": {"type": "string"},
+    "plan_id": {"type": "string"},
+    "base_sha": {"type": "string"},
+    "head_sha": {"type": "string"},
+    "changed_files": {"type": "array", "items": {"type": "string"}},
+    "commands": {"type": "array", "items": {"type": "string"}},
+    "exit_codes": {"type": "array", "items": {"type": "integer"}},
+    "tests": {"type": "object"},
+    "scope_result": {"type": "object"},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "remaining_risks": {"type": "array", "items": {"type": "string"}},
+    "status": {"enum": ["PASS", "PARTIAL", "BLOCKED", "FAIL"]}
+  },
+  "additionalProperties": false
+}

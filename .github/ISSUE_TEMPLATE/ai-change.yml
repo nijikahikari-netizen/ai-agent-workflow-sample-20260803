@@ -1,0 +1,30 @@
+name: AI-assisted change
+description: Define a bounded change for plan, human approval, and isolated execution.
+title: "[AI change] "
+labels: ["ai-assisted"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Allowed files and prohibited changes
+      description: Name exact files. State workflow, dependency, migration, and secret restrictions.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Required validation commands
+    validations:
+      required: true

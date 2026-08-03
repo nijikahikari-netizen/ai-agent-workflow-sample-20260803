@@ -1,0 +1,28 @@
+{
+  "allowed_paths": [
+    "src/main/java/com/example/assetworkflow/asset/**",
+    "src/test/java/com/example/assetworkflow/asset/**"
+  ],
+  "approval_required_paths": [
+    ".github/**",
+    "build.gradle",
+    "settings.gradle",
+    "gradle/**"
+  ],
+  "prohibited_paths": [
+    "src/main/resources/db/migration/**",
+    ".env",
+    "**/*.pem",
+    "**/*secret*",
+    "**/*credential*"
+  ],
+  "planned_files": [
+    "src/main/java/com/example/assetworkflow/asset/AssetBorrowService.java",
+    "src/main/java/com/example/assetworkflow/asset/ErrorCode.java",
+    "src/test/java/com/example/assetworkflow/asset/AssetBorrowServiceTest.java"
+  ],
+  "allow_deletions": false,
+  "allow_untracked": false,
+  "allow_binary": false,
+  "allow_symlinks": false
+}
