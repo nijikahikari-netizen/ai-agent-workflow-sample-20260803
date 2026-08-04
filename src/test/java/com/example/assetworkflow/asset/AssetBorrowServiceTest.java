@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class AssetBorrowServiceTest {
 
-  private static final long EMPLOYEE_ID = 1L;
+  private   static final long EMPLOYEE_ID=1L;
   private static final long ASSET_ID = 10L;
 
   @Mock private EmployeeRepository employeeRepository;
