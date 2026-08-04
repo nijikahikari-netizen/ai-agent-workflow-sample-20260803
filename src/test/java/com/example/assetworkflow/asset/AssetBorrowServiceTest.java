@@ -1,6 +1,7 @@
 package com.example.assetworkflow.asset;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -43,11 +44,25 @@ class AssetBorrowServiceTest {
   }
 
   @Test
-  void resignedEmployeeCanCreateBorrowRequestInBaseline() {
-    BorrowResponse result = executeSuccessfulBorrow(EmployeeStatus.RESIGNED);
+  void resignedEmployeeCannotCreateBorrowRequest() {
+    givenResignedEmployee();
 
-    assertThat(result).isNotNull();
-    then(borrowRepository).should().save(any(Borrow.class));
+    assertThatExceptionOfType(BusinessException.class)
+        .isThrownBy(() -> service.createBorrowRequest(EMPLOYEE_ID, request()))
+        .satisfies(
+            exception ->
+                assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.EMPLOYEE_NOT_ELIGIBLE));
+  }
+
+  @Test
+  void resignedEmployeeRejectionDoesNotAccessAssetOrSaveBorrow() {
+    givenResignedEmployee();
+
+    assertThatExceptionOfType(BusinessException.class)
+        .isThrownBy(() -> service.createBorrowRequest(EMPLOYEE_ID, request()));
+
+    then(assetRepository).shouldHaveNoInteractions();
+    then(borrowRepository).shouldHaveNoInteractions();
   }
 
   @Test
@@ -63,7 +78,15 @@ class AssetBorrowServiceTest {
     given(employeeRepository.getById(EMPLOYEE_ID)).willReturn(employee);
     given(assetRepository.getAvailableById(ASSET_ID)).willReturn(new Asset(ASSET_ID));
 
-    return service.createBorrowRequest(
-        EMPLOYEE_ID, new AssetBorrowRequest(ASSET_ID, LocalDate.now().plusDays(7)));
+    return service.createBorrowRequest(EMPLOYEE_ID, request());
+  }
+
+  private void givenResignedEmployee() {
+    given(employeeRepository.getById(EMPLOYEE_ID))
+        .willReturn(new Employee(EMPLOYEE_ID, EmployeeStatus.RESIGNED));
+  }
+
+  private AssetBorrowRequest request() {
+    return new AssetBorrowRequest(ASSET_ID, LocalDate.now().plusDays(7));
   }
 }

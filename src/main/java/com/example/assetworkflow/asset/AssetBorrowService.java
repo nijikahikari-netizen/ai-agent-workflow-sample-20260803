@@ -2,6 +2,7 @@ package com.example.assetworkflow.asset;
 
 import com.example.assetworkflow.employee.Employee;
 import com.example.assetworkflow.employee.EmployeeRepository;
+import com.example.assetworkflow.employee.EmployeeStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,9 @@ public class AssetBorrowService {
 
   public BorrowResponse createBorrowRequest(Long employeeId, AssetBorrowRequest request) {
     Employee employee = employeeRepository.getById(employeeId);
+    if (employee.status() == EmployeeStatus.RESIGNED) {
+      throw new BusinessException(ErrorCode.EMPLOYEE_NOT_ELIGIBLE);
+    }
     Asset asset = assetRepository.getAvailableById(request.assetId());
     Borrow borrow = Borrow.create(employee, asset, request.returnDueDate());
     borrowRepository.save(borrow);
